@@ -20,95 +20,121 @@ namespace dyncompressor
 
         private void InitializeComponent()
         {
-            SuspendLayout();
+            // --- Buttons ---
+            btnLoadPath = CreateStyledButton("Load Path", Color.FromArgb(0, 120, 215));
+            btnSmartFullCompress = CreateStyledButton("Smart Compress", Color.FromArgb(0, 200, 255));
+            button1 = CreateStyledButton("Decompress", Color.FromArgb(60, 180, 75));
+            button2 = CreateStyledButton("Clear", Color.FromArgb(200, 80, 80));
 
-            // Form styling - modern theme
-            BackColor = Color.FromArgb(35, 40, 75);  // Dark modern background
-            StartPosition = FormStartPosition.CenterScreen;
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            AutoScaleMode = AutoScaleMode.Font;
+            // Names (important)
+            btnLoadPath.Name = "btnLoadPath";
+            btnSmartFullCompress.Name = "btnSmartFullCompress";
+            button1.Name = "button1";
+            button2.Name = "button2";
 
-            // Main title - Centered at top
+            // Event handlers
+            btnLoadPath.Click += btnLoadPath_Click;
+            btnSmartFullCompress.Click += btnSmartFullCompress_Click;
+            button1.Click += button1_Click;
+            button2.Click += button2_Click;
+
+            // Add to form
+            Controls.Add(btnLoadPath);
+            Controls.Add(btnSmartFullCompress);
+            Controls.Add(button1);
+            Controls.Add(button2);
+
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             label1 = new Label();
+            lvDropBox = new ListView();
+            lblTime = new Label();
+            progressBar = new ProgressBar();
+            lblStatus = new Label();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.FromArgb(0, 200, 255);  // Electric blue
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(0, 200, 255);
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(315, 41);
+            label1.TabIndex = 0;
             label1.Text = "Dynamic Compressor";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Anchor = AnchorStyles.Top;
-
-            // ListView with better styling
-            lvDropBox = new ListView();
+            // 
+            // lvDropBox
+            // 
             lvDropBox.AllowDrop = true;
+            lvDropBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvDropBox.BorderStyle = BorderStyle.FixedSingle;
             lvDropBox.FullRowSelect = true;
             lvDropBox.GridLines = true;
-            lvDropBox.BorderStyle = BorderStyle.FixedSingle;
+            lvDropBox.Location = new Point(0, 0);
+            lvDropBox.Name = "lvDropBox";
+            lvDropBox.Size = new Size(121, 97);
+            lvDropBox.TabIndex = 1;
             lvDropBox.UseCompatibleStateImageBehavior = false;
             lvDropBox.View = View.Details;
-            lvDropBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-
-            // Add columns to ListView
-            lvDropBox.Columns.Add("File Name", 300);
-            lvDropBox.Columns.Add("Size", 150);
-            lvDropBox.Columns.Add("Status", 150);
-
-            // Buttons with modern styling
-            btnLoadPath = CreateStyledButton("📁 Load Folder", Color.FromArgb(0, 150, 255));
-            btnLoadPath.Click += btnLoadPath_Click;
-            btnLoadPath.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            button2 = CreateStyledButton("🗑️ Clear List", Color.FromArgb(255, 87, 87));
-            button2.Click += button2_Click;
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            // Action buttons - centered at bottom
-            btnSmartFullCompress = CreateStyledButton("⚡ Smart Compress", Color.FromArgb(0, 200, 83));
-            btnSmartFullCompress.Click += btnSmartFullCompress_Click;
-            btnSmartFullCompress.Anchor = AnchorStyles.Bottom;
-
-            button1 = CreateStyledButton("📤 Decompress", Color.FromArgb(255, 193, 7));
-            button1.Click += button1_Click;
-            button1.Anchor = AnchorStyles.Bottom;
-
-            // Time label with better styling
-            lblTime = new Label();
-            lblTime.AutoSize = true;
-            lblTime.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTime.ForeColor = Color.FromArgb(180, 180, 180);
-            lblTime.Text = "Elapsed: 00:00 | Estimated: --:--";
+            // 
+            // lblTime
+            // 
             lblTime.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-
-            // Progress bar
-            progressBar = new ProgressBar();
-            progressBar.Style = ProgressBarStyle.Continuous;
-            progressBar.ForeColor = Color.FromArgb(0, 200, 255);
-            progressBar.BackColor = Color.FromArgb(60, 60, 70);
-            progressBar.Visible = false;
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Segoe UI", 9F);
+            lblTime.ForeColor = Color.FromArgb(180, 180, 180);
+            lblTime.Location = new Point(0, 0);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(215, 20);
+            lblTime.TabIndex = 2;
+            lblTime.Text = "Elapsed: 00:00 | Estimated: --:--";
+            // 
+            // progressBar
+            // 
             progressBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-
-            // Status label
-            lblStatus = new Label();
+            progressBar.BackColor = Color.FromArgb(60, 60, 70);
+            progressBar.ForeColor = Color.FromArgb(0, 200, 255);
+            progressBar.Location = new Point(0, 0);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new Size(100, 23);
+            progressBar.Style = ProgressBarStyle.Continuous;
+            progressBar.TabIndex = 3;
+            progressBar.Visible = false;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblStatus.AutoSize = true;
             lblStatus.ForeColor = Color.FromArgb(0, 200, 255);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(50, 20);
+            lblStatus.TabIndex = 4;
             lblStatus.Text = "Ready";
-            lblStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-
-            // Set control positions dynamically in Form1_Load
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(35, 40, 75);
             ClientSize = new Size(1000, 600);
+            Controls.Add(label1);
+            Controls.Add(lvDropBox);
+            Controls.Add(lblTime);
+            Controls.Add(progressBar);
+            Controls.Add(lblStatus);
+            Font = new Font("Segoe UI", 9F);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 500);
-
-            Controls.AddRange(new Control[] {
-        label1, lvDropBox, btnLoadPath, button2,
-        btnSmartFullCompress, button1, lblTime,
-        progressBar, lblStatus
-    });
-
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Dynamic Compressor";
-
-            // Handle resize to reposition controls
             Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
+
         }
 
         // Improved button creation method
