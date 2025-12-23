@@ -6,6 +6,14 @@ This project was designed as both a technical exploration and a portfolio-grade 
 
 ---
 
+## Preview
+
+![Main UI](assets/UI.PNG)
+![Compression in progress](assets/compressing.PNG)
+![Result](assets/OUTPUT.PNG)
+
+---
+
 ## Key Features
 
 - Custom archive format: **`.dcz`**
@@ -97,7 +105,18 @@ Main components:
   - preprocessing flags (future-proofed)
 - Supports restoration of empty directories
 
+## Architecture Overview
+
+![Architecture Diagram](assets/diagram.png)
+
 ---
+## Engineering Decisions & Tradeoffs
+
+- Dynamic compression was chosen over static algorithms to explore decision-based systems.
+- STORE fallback is used to avoid negative compression ratios.
+- Executables are handled conservatively to preserve integrity.
+- Chunk-based design enables parallelism at the cost of metadata overhead.
+- The project prioritizes robustness and clarity over maximum compression ratio.
 
 ## Why this project exists
 
